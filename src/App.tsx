@@ -1,25 +1,63 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppLayout from "./components/layout/AppLayout";
+import Homepage from "./screen/admin/Homepage";
+import Users from "./screen/admin/Users";
+import Transactions from "./screen/admin/Transactions";
+import TopUp from "./screen/admin/TopUp";
+import Packages from "./screen/admin/Packages";
+import Login from "./screen/auth/Login";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route
+            path="/"
+            element={
+              <AppLayout>
+                <Homepage />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/users"
+            element={
+              <AppLayout>
+                <Users />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/transactions"
+            element={
+              <AppLayout>
+                <Transactions />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/topup"
+            element={
+              <AppLayout>
+                <TopUp />
+              </AppLayout>
+            }
+          />
+          <Route
+            path="/packages"
+            element={
+              <AppLayout>
+                <Packages />
+              </AppLayout>
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
